@@ -9,8 +9,8 @@ Welcome to my GitHub profile! I build tools and applications that make AI agents
 ## 📊 GitHub Stats
 
 <div align="center">
-  <img src="https://github-readme-stats.vercel.app/api?username=vkumar-dev&show_icons=true&theme=gradient&hide_border=true" alt="GitHub Stats" height="180"/>
-  <img src="https://github-readme-stats.vercel.app/api/top-langs/?username=vkumar-dev&layout=compact&theme=gradient&hide_border=true" alt="Top Languages" height="180"/>
+  <img src="https://github-readme-stats.vercel.app/api?username=vkumar-dev&show_icons=true&theme=dark&hide_border=true" alt="GitHub Stats" height="180"/>
+  <img src="https://github-readme-stats.vercel.app/api/top-langs/?username=vkumar-dev&layout=compact&theme=dark&hide_border=true" alt="Top Languages" height="180"/>
 </div>
 
 ---
@@ -21,7 +21,6 @@ Welcome to my GitHub profile! I build tools and applications that make AI agents
 
 | Project | Description | Pages |
 |---------|-------------|-------|
-| **[eliza](https://github.com/vkumar-dev/eliza)** | Autonomous agents for everyone | [🌐 View](https://vkumar-dev.github.io/eliza/) |
 | **[ralph-manager](https://github.com/vkumar-dev/ralph-manager)** | GUI & CLI for managing AI agent loops | [🌐 View](https://vkumar-dev.github.io/ralph-manager/) |
 | **[agent-workflow-builder](https://github.com/vkumar-dev/agent-workflow-builder)** | Visual browser agent workflow automation | [🌐 View](https://vkumar-dev.github.io/agent-workflow-builder/) |
 | **[local-agent-shell](https://github.com/vkumar-dev/local-agent-shell)** | Browser-based terminal with local access | [🌐 View](https://vkumar-dev.github.io/local-agent-shell/) |
@@ -72,8 +71,7 @@ Welcome to my GitHub profile! I build tools and applications that make AI agents
 
 ## 📈 My Projects Overview
 
-![GitHub Repos](https://img.shields.io/badge/Public%20Repos-23-blue?style=for-the-badge)
-![GitHub Stars](https://img.shields.io/github/stars/vkumar-dev/eliza?style=for-the-badge&label=eliza%20stars)
+![GitHub Repos](https://img.shields.io/badge/Public%20Repos-22-blue?style=for-the-badge)
 
 ---
 
@@ -87,7 +85,6 @@ Every project has its own GitHub Pages site! Here's the complete list:
 - [agent-workflow-builder](https://vkumar-dev.github.io/agent-workflow-builder/)
 - [local-agent-shell](https://vkumar-dev.github.io/local-agent-shell/)
 - [probable-eureka](https://vkumar-dev.github.io/probable-eureka/)
-- [eliza](https://vkumar-dev.github.io/eliza/)
 - [runnn](https://vkumar-dev.github.io/runnn/)
 - [247agent](https://vkumar-dev.github.io/247agent/)
 - [SigmaOne](https://vkumar-dev.github.io/SigmaOne/)
