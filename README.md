@@ -9,8 +9,8 @@ Welcome to my GitHub profile! I build tools and applications that make AI agents
 ## 📊 GitHub Stats
 
 <div align="center">
-  <img src="https://github-readme-stats.vercel.app/api?username=vkumar-dev&show_icons=true&theme=dark&hide_border=true" alt="GitHub Stats" height="180"/>
-  <img src="https://github-readme-stats.vercel.app/api/top-langs/?username=vkumar-dev&layout=compact&theme=dark&hide_border=true" alt="Top Languages" height="180"/>
+  <img src="https://github-profile-summary-cards.vercel.app/api/cards/profile-details?username=vkumar-dev&theme=github_dark" alt="GitHub Stats" height="180"/>
+  <img src="https://github-profile-summary-cards.vercel.app/api/cards/repos-per-language?username=vkumar-dev&theme=github_dark" alt="Top Languages" height="180"/>
 </div>
 
 ---
