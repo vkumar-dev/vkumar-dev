@@ -9,8 +9,11 @@ Welcome to my GitHub profile! I build tools and applications that make AI agents
 ## 📊 GitHub Stats
 
 <div align="center">
-  <img src="https://streak-stats.demolab.com?user=vkumar-dev&theme=dark&hide_border=true" alt="GitHub Streak" height="180"/>
-  <img src="https://github-profile-trophy.vercel.app/?username=vkumar-dev&theme=dark&no-frame=true&column=4" alt="GitHub Trophies" height="180"/>
+
+![GitHub followers](https://img.shields.io/github/followers/vkumar-dev?style=for-the-badge&logo=github)
+![GitHub User's stars](https://img.shields.io/github/stars/vkumar-dev?style=for-the-badge&logo=github)
+![GitHub commit activity](https://img.shields.io/github/commit-activity/y/vkumar-dev?style=for-the-badge&logo=github)
+
 </div>
 
 ---
