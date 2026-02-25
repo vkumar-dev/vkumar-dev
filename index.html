@@ -12,10 +12,6 @@
     }
 
     :root {
-      --hour: 12;
-      --night: 0;
-      --day: 1;
-      --dawn-dusk: 0.5;
       --primary: #00ff88;
       --secondary: #0088ff;
       --accent: #ff00ff;
@@ -51,6 +47,7 @@
       align-items: center;
       z-index: 10;
       pointer-events: none;
+      perspective: 1200px;
     }
 
     .content {
@@ -64,63 +61,76 @@
       font-size: 4rem;
       margin-bottom: 1rem;
       animation: float 3s ease-in-out infinite;
-      text-shadow: 
-        0 0 20px rgba(0, 255, 136, 0.8),
-        0 0 40px rgba(0, 255, 136, 0.4),
-        0 0 60px rgba(0, 136, 255, 0.3),
-        0 0 100px rgba(0, 255, 136, 0.2);
       filter: drop-shadow(0 0 30px rgba(0, 255, 136, 0.6));
     }
 
     .title {
-      font-size: 3.5rem;
+      font-size: 4rem;
       font-weight: bold;
       margin-bottom: 0.5rem;
+      letter-spacing: 3px;
+      font-family: 'Arial Black', sans-serif;
       background: linear-gradient(135deg, var(--primary), var(--secondary), var(--accent));
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
       background-clip: text;
-      text-shadow: 
-        0 0 30px rgba(0, 255, 136, 0.6),
-        0 0 60px rgba(0, 136, 255, 0.4),
-        0 0 100px rgba(255, 0, 255, 0.2);
-      letter-spacing: 2px;
-      filter: drop-shadow(0 0 40px rgba(0, 255, 136, 0.4));
+      filter: drop-shadow(0 0 50px rgba(0, 255, 136, 0.4));
+      position: relative;
+      text-shadow: 0 20px 40px rgba(0, 0, 0, 0.8);
     }
 
     .subtitle {
       font-size: 1.5rem;
       color: var(--secondary);
       margin-bottom: 2rem;
-      text-shadow: 
-        0 0 15px rgba(0, 136, 255, 0.8),
-        0 0 30px rgba(255, 0, 255, 0.4),
-        0 0 50px rgba(0, 136, 255, 0.2);
       animation: pulse 2s ease-in-out infinite;
       filter: drop-shadow(0 0 20px rgba(0, 136, 255, 0.6));
     }
 
     .status-badge {
       display: inline-block;
-      padding: 0.5rem 1.5rem;
-      border: 2px solid var(--primary);
-      border-radius: 50px;
+      padding: 1rem 2rem;
       color: var(--primary);
-      font-size: 0.9rem;
+      font-size: 0.95rem;
       margin-bottom: 2rem;
-      text-shadow: 0 0 15px rgba(0, 255, 136, 0.8);
-      box-shadow: 
-        0 0 20px rgba(0, 255, 136, 0.5),
-        0 0 40px rgba(0, 255, 136, 0.3),
-        inset 0 0 20px rgba(0, 255, 136, 0.1);
+      border-radius: 20px;
+      background: linear-gradient(135deg, rgba(0, 255, 136, 0.15), rgba(0, 136, 255, 0.1));
+      border: 2px solid var(--primary);
       animation: glow 2s ease-in-out infinite;
-      filter: drop-shadow(0 0 20px rgba(0, 255, 136, 0.4));
+      pointer-events: auto;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      box-shadow: 
+        0 10px 30px rgba(0, 255, 136, 0.2),
+        inset 0 1px 0 rgba(255, 255, 255, 0.2),
+        inset 0 -1px 0 rgba(0, 0, 0, 0.8);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .status-badge::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: radial-gradient(ellipse at center, rgba(255, 255, 255, 0.1), transparent);
+      pointer-events: none;
+    }
+
+    .status-badge:hover {
+      transform: translateY(-2px);
+      box-shadow: 
+        0 15px 40px rgba(0, 255, 136, 0.4),
+        inset 0 1px 0 rgba(255, 255, 255, 0.3),
+        inset 0 -1px 0 rgba(0, 0, 0, 0.9);
     }
 
     .projects-preview {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-      gap: 1rem;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 1.5rem;
       max-width: 1000px;
       margin-top: 2rem;
       pointer-events: auto;
@@ -128,50 +138,78 @@
     }
 
     .project-card {
-      padding: 1rem;
-      border: 1px solid rgba(0, 255, 136, 0.3);
-      background: rgba(10, 14, 39, 0.8);
-      backdrop-filter: blur(10px);
-      border-radius: 10px;
+      padding: 1.5rem;
+      border-radius: 20px;
       transition: all 0.3s ease;
-      text-shadow: 0 0 10px rgba(0, 255, 136, 0.5);
       position: relative;
       overflow: hidden;
-      box-shadow: 0 0 20px rgba(0, 255, 136, 0.2);
+      pointer-events: auto;
+      cursor: pointer;
+      background: linear-gradient(135deg, rgba(0, 255, 136, 0.1), rgba(0, 136, 255, 0.05));
+      border: 2px solid rgba(0, 255, 136, 0.4);
+      box-shadow: 
+        0 8px 32px rgba(0, 255, 136, 0.15),
+        inset 0 1px 0 rgba(255, 255, 255, 0.2),
+        inset 0 -1px 0 rgba(0, 0, 0, 0.8);
+      backdrop-filter: blur(10px);
+      transform: translateZ(0);
     }
 
     .project-card::before {
       content: '';
       position: absolute;
       top: 0;
-      left: -100%;
-      width: 100%;
-      height: 100%;
-      background: linear-gradient(90deg, transparent, rgba(0, 255, 136, 0.2), transparent);
-      animation: shimmer 3s infinite;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: 
+        repeating-linear-gradient(
+          0deg,
+          rgba(255, 255, 255, 0.02) 0px,
+          rgba(255, 255, 255, 0.02) 2px,
+          transparent 2px,
+          transparent 4px
+        );
+      pointer-events: none;
+      opacity: 0.5;
+    }
+
+    .project-card::after {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: radial-gradient(ellipse at center top, rgba(255, 255, 255, 0.08), transparent);
+      pointer-events: none;
     }
 
     .project-card:hover {
       border-color: var(--primary);
       box-shadow: 
-        0 0 30px rgba(0, 255, 136, 0.7),
-        inset 0 0 30px rgba(0, 255, 136, 0.2),
-        0 0 60px rgba(0, 255, 136, 0.3);
-      transform: translateY(-8px) scale(1.05);
-      background: rgba(10, 14, 39, 0.95);
+        0 15px 50px rgba(0, 255, 136, 0.35),
+        inset 0 1px 0 rgba(255, 255, 255, 0.3),
+        inset 0 -1px 0 rgba(0, 0, 0, 0.9);
+      transform: translateY(-8px) scale(1.05) translateZ(10px);
+      background: linear-gradient(135deg, rgba(0, 255, 136, 0.2), rgba(0, 136, 255, 0.1));
     }
 
     .project-card h3 {
       color: var(--primary);
-      font-size: 1.1rem;
+      font-size: 1.2rem;
       margin-bottom: 0.5rem;
-      text-shadow: 0 0 15px rgba(0, 255, 136, 0.8);
+      position: relative;
+      z-index: 2;
+      font-weight: bold;
     }
 
     .project-card p {
-      font-size: 0.8rem;
+      font-size: 0.85rem;
       color: var(--text);
-      opacity: 0.8;
+      opacity: 0.85;
+      position: relative;
+      z-index: 2;
     }
 
     .time-display {
@@ -181,13 +219,15 @@
       font-size: 0.9rem;
       color: var(--secondary);
       z-index: 20;
-      text-shadow: 0 0 15px rgba(0, 136, 255, 0.8);
       pointer-events: auto;
-      background: rgba(10, 14, 39, 0.7);
-      padding: 0.5rem 1rem;
-      border-radius: 10px;
-      border: 1px solid rgba(0, 136, 255, 0.3);
-      box-shadow: 0 0 20px rgba(0, 136, 255, 0.3);
+      background: linear-gradient(135deg, rgba(0, 136, 255, 0.15), rgba(0, 255, 136, 0.05));
+      padding: 0.8rem 1.2rem;
+      border-radius: 15px;
+      border: 2px solid rgba(0, 136, 255, 0.4);
+      box-shadow: 
+        0 8px 32px rgba(0, 136, 255, 0.15),
+        inset 0 1px 0 rgba(255, 255, 255, 0.2),
+        inset 0 -1px 0 rgba(0, 0, 0, 0.8);
     }
 
     .stats {
@@ -197,18 +237,22 @@
       font-size: 0.8rem;
       color: var(--primary);
       z-index: 20;
-      text-shadow: 0 0 15px rgba(0, 255, 136, 0.8);
       pointer-events: auto;
-      background: rgba(10, 14, 39, 0.7);
-      padding: 1rem;
-      border-radius: 10px;
-      border: 1px solid rgba(0, 255, 136, 0.3);
-      box-shadow: 0 0 20px rgba(0, 255, 136, 0.3);
+      background: linear-gradient(135deg, rgba(0, 255, 136, 0.1), rgba(0, 136, 255, 0.05));
+      padding: 1.2rem;
+      border-radius: 15px;
+      border: 2px solid rgba(0, 255, 136, 0.3);
+      box-shadow: 
+        0 8px 32px rgba(0, 255, 136, 0.15),
+        inset 0 1px 0 rgba(255, 255, 255, 0.2),
+        inset 0 -1px 0 rgba(0, 0, 0, 0.8);
     }
 
     .stats span {
       display: block;
-      margin: 0.3rem 0;
+      margin: 0.4rem 0;
+      position: relative;
+      z-index: 2;
     }
 
     @keyframes fadeIn {
@@ -235,48 +279,60 @@
     @keyframes glow {
       0%, 100% {
         box-shadow: 
-          0 0 20px rgba(0, 255, 136, 0.5),
-          0 0 40px rgba(0, 255, 136, 0.3),
-          inset 0 0 20px rgba(0, 255, 136, 0.1);
+          0 10px 30px rgba(0, 255, 136, 0.2),
+          inset 0 1px 0 rgba(255, 255, 255, 0.2),
+          inset 0 -1px 0 rgba(0, 0, 0, 0.8);
       }
       50% {
         box-shadow: 
-          0 0 40px rgba(0, 255, 136, 0.8),
-          0 0 80px rgba(0, 255, 136, 0.5),
-          inset 0 0 30px rgba(0, 255, 136, 0.2);
+          0 15px 40px rgba(0, 255, 136, 0.4),
+          inset 0 1px 0 rgba(255, 255, 255, 0.3),
+          inset 0 -1px 0 rgba(0, 0, 0, 0.9);
       }
-    }
-
-    @keyframes shimmer {
-      0% { left: -100%; }
-      100% { left: 100%; }
     }
 
     .github-link {
       position: fixed;
       bottom: 20px;
       right: 20px;
-      padding: 0.8rem 1.5rem;
-      border: 2px solid var(--secondary);
-      background: rgba(0, 136, 255, 0.1);
+      padding: 1rem 1.8rem;
+      background: linear-gradient(135deg, rgba(0, 136, 255, 0.2), rgba(0, 255, 136, 0.05));
       color: var(--secondary);
       text-decoration: none;
-      border-radius: 50px;
-      font-size: 0.9rem;
+      border-radius: 20px;
+      font-size: 0.95rem;
+      font-weight: bold;
       z-index: 20;
       transition: all 0.3s ease;
-      text-shadow: 0 0 15px rgba(0, 136, 255, 0.8);
       pointer-events: auto;
       cursor: pointer;
-      box-shadow: 0 0 20px rgba(0, 136, 255, 0.3);
+      border: 2px solid var(--secondary);
+      box-shadow: 
+        0 8px 32px rgba(0, 136, 255, 0.2),
+        inset 0 1px 0 rgba(255, 255, 255, 0.2),
+        inset 0 -1px 0 rgba(0, 0, 0, 0.8);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .github-link::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: radial-gradient(ellipse at center top, rgba(255, 255, 255, 0.1), transparent);
+      pointer-events: none;
     }
 
     .github-link:hover {
       box-shadow: 
-        0 0 40px rgba(0, 136, 255, 0.8),
-        0 0 80px rgba(0, 136, 255, 0.4);
-      transform: scale(1.1);
-      background: rgba(0, 136, 255, 0.2);
+        0 15px 50px rgba(0, 136, 255, 0.4),
+        inset 0 1px 0 rgba(255, 255, 255, 0.3),
+        inset 0 -1px 0 rgba(0, 0, 0, 0.9);
+      transform: translateY(-4px) scale(1.08);
+      background: linear-gradient(135deg, rgba(0, 136, 255, 0.3), rgba(0, 255, 136, 0.1));
     }
   </style>
 </head>
@@ -366,238 +422,51 @@
       timeDisplay.textContent = `${period} ${hours}:${mins}`;
     }
 
-    // 3D Box Environment with Infinite Depth Illusion
+    // Minimal ambient background with slow particles
     const canvas = document.getElementById('canvas');
     const ctx = canvas.getContext('2d');
 
     canvas.width = window.innerWidth;
     canvas.height = window.innerHeight;
 
-    const centerX = canvas.width / 2;
-    const centerY = canvas.height / 2;
-
-    class Vector3 {
-      constructor(x = 0, y = 0, z = 0) {
-        this.x = x;
-        this.y = y;
-        this.z = z;
-      }
-
-      rotateX(angle) {
-        const cos = Math.cos(angle);
-        const sin = Math.sin(angle);
-        const y = this.y * cos - this.z * sin;
-        const z = this.y * sin + this.z * cos;
-        return new Vector3(this.x, y, z);
-      }
-
-      rotateY(angle) {
-        const cos = Math.cos(angle);
-        const sin = Math.sin(angle);
-        const x = this.x * cos + this.z * sin;
-        const z = -this.x * sin + this.z * cos;
-        return new Vector3(x, this.y, z);
-      }
-
-      rotateZ(angle) {
-        const cos = Math.cos(angle);
-        const sin = Math.sin(angle);
-        const x = this.x * cos - this.y * sin;
-        const y = this.x * sin + this.y * cos;
-        return new Vector3(x, y, this.z);
-      }
-
-      project(scale = 500) {
-        if (this.z <= 0) this.z = 0.1;
-        const perspective = scale / (scale + this.z);
-        return {
-          x: centerX + this.x * perspective,
-          y: centerY + this.y * perspective,
-          z: this.z,
-          scale: perspective
-        };
-      }
-    }
-
-    class Particle3D {
+    class AmbientParticle {
       constructor() {
-        this.reset();
-        this.color = ['#00ff88', '#0088ff', '#ff00ff', '#ffff00', '#ff6b35'][Math.floor(Math.random() * 5)];
+        this.x = Math.random() * canvas.width;
+        this.y = Math.random() * canvas.height;
+        this.vx = (Math.random() - 0.5) * 0.3;
+        this.vy = (Math.random() - 0.5) * 0.3;
+        this.size = Math.random() * 1.5 + 0.5;
+        this.opacity = Math.random() * 0.3 + 0.1;
       }
 
-      reset() {
-        this.pos = new Vector3(
-          (Math.random() - 0.5) * 2000,
-          (Math.random() - 0.5) * 2000,
-          Math.random() * 3000 - 1500
-        );
-        this.vel = new Vector3(
-          (Math.random() - 0.5) * 4,
-          (Math.random() - 0.5) * 4,
-          (Math.random() - 0.5) * 4
-        );
-        this.size = Math.random() * 3 + 1;
+      update() {
+        this.x += this.vx;
+        this.y += this.vy;
+
+        if (this.x < 0) this.x = canvas.width;
+        if (this.x > canvas.width) this.x = 0;
+        if (this.y < 0) this.y = canvas.height;
+        if (this.y > canvas.height) this.y = 0;
       }
 
-      update(rotX, rotY) {
-        this.pos.x += this.vel.x;
-        this.pos.y += this.vel.y;
-        this.pos.z += this.vel.z;
-
-        // Wrap around
-        if (Math.abs(this.pos.x) > 1500) this.pos.x *= -0.8;
-        if (Math.abs(this.pos.y) > 1500) this.pos.y *= -0.8;
-        if (this.pos.z > 1500) this.reset();
-        if (this.pos.z < -1500) this.pos.z = 1500;
-
-        // Apply rotation
-        let rotated = this.pos.rotateX(rotX);
-        rotated = rotated.rotateY(rotY);
-
-        return rotated;
-      }
-
-      draw(projected) {
-        const opacity = Math.max(0.1, 1 - (projected.z + 1500) / 3000);
-        const size = Math.max(0.5, this.size * projected.scale);
-
-        ctx.fillStyle = this.color.replace('rgb', 'rgba').replace(')', `, ${opacity})`);
+      draw() {
+        ctx.fillStyle = `rgba(0, 255, 136, ${this.opacity})`;
         ctx.beginPath();
-        ctx.arc(projected.x, projected.y, size, 0, Math.PI * 2);
+        ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
         ctx.fill();
-
-        // Glow
-        ctx.strokeStyle = this.color.replace('rgb', 'rgba').replace(')', `, ${opacity * 0.6})`);
-        ctx.lineWidth = 0.5;
-        ctx.stroke();
       }
     }
 
-    class GridPlane {
-      constructor(z, color = '#00ff88') {
-        this.z = z;
-        this.color = color;
-        this.gridSize = 200;
-        this.gridCount = 10;
-      }
-
-      draw(rotX, rotY) {
-        const points = [];
-
-        for (let i = -this.gridCount; i <= this.gridCount; i++) {
-          for (let j = -this.gridCount; j <= this.gridCount; j++) {
-            const pos = new Vector3(
-              i * this.gridSize,
-              j * this.gridSize,
-              this.z
-            );
-
-            let rotated = pos.rotateX(rotX);
-            rotated = rotated.rotateY(rotY);
-            const projected = rotated.project();
-
-            const opacity = Math.max(0.05, 1 - Math.abs(this.z + 1500) / 3000);
-            ctx.fillStyle = this.color.replace('rgb', 'rgba').replace(')', `, ${opacity * 0.3})`);
-            ctx.fillRect(projected.x - 1, projected.y - 1, 2, 2);
-          }
-        }
-
-        // Draw grid lines
-        ctx.strokeStyle = this.color.replace('rgb', 'rgba').replace(')', ', 0.1)');
-        ctx.lineWidth = 0.5;
-
-        for (let i = -this.gridCount; i <= this.gridCount; i++) {
-          ctx.beginPath();
-
-          for (let j = -this.gridCount; j <= this.gridCount; j++) {
-            const pos = new Vector3(
-              i * this.gridSize,
-              j * this.gridSize,
-              this.z
-            );
-
-            let rotated = pos.rotateX(rotX);
-            rotated = rotated.rotateY(rotY);
-            const projected = rotated.project();
-
-            if (j === -this.gridCount) {
-              ctx.moveTo(projected.x, projected.y);
-            } else {
-              ctx.lineTo(projected.x, projected.y);
-            }
-          }
-          ctx.stroke();
-        }
-      }
-    }
-
-    const particles = Array.from({ length: 150 }, () => new Particle3D());
-    const gridPlanes = [
-      new GridPlane(-1500, '#00ff88'),
-      new GridPlane(-750, '#0088ff'),
-      new GridPlane(0, '#ff00ff'),
-      new GridPlane(750, '#00ffff'),
-      new GridPlane(1500, '#ffff00')
-    ];
-
-    let rotX = 0;
-    let rotY = 0;
+    const particles = Array.from({ length: 30 }, () => new AmbientParticle());
 
     function animate() {
-      // Clear with fade
-      ctx.fillStyle = 'rgba(0, 0, 0, 0.15)';
+      ctx.fillStyle = 'rgba(0, 0, 0, 0.05)';
       ctx.fillRect(0, 0, canvas.width, canvas.height);
 
-      // Slow rotation for immersion
-      rotX += 0.0005;
-      rotY += 0.0008;
-
-      // Draw grid planes (back to front for depth)
-      gridPlanes.forEach(plane => {
-        plane.draw(rotX, rotY);
+      particles.forEach(p => {
+        p.update();
+        p.draw();
       });
-
-      // Update and draw particles with depth sorting
-      const particlesWithDepth = particles.map(p => {
-        const rotated = p.update(rotX, rotY);
-        const projected = rotated.project();
-        return { particle: p, projected, rotated, depth: rotated.z };
-      });
-
-      // Sort by depth (farthest first, then closest)
-      particlesWithDepth.sort((a, b) => b.depth - a.depth);
-
-      particlesWithDepth.forEach(({ particle, projected }) => {
-        particle.draw(projected);
-      });
-
-      // Draw connections (only visible particles)
-      ctx.strokeStyle = 'rgba(0, 255, 136, 0.1)';
-      ctx.lineWidth = 0.5;
-
-      for (let i = 0; i < particlesWithDepth.length; i++) {
-        for (let j = i + 1; j < particlesWithDepth.length; j++) {
-          const p1 = particlesWithDepth[i].projected;
-          const p2 = particlesWithDepth[j].projected;
-          const dx = p1.x - p2.x;
-          const dy = p1.y - p2.y;
-          const distance = Math.sqrt(dx * dx + dy * dy);
-
-          if (distance < 200) {
-            const opacity = (1 - distance / 200) * 0.2;
-            ctx.strokeStyle = `rgba(0, 255, 136, ${opacity})`;
-            ctx.beginPath();
-            ctx.moveTo(p1.x, p1.y);
-            ctx.lineTo(p2.x, p2.y);
-            ctx.stroke();
-          }
-        }
-      }
-
-      // Draw border frame for depth illusion
-      ctx.strokeStyle = 'rgba(0, 255, 136, 0.2)';
-      ctx.lineWidth = 2;
-      ctx.strokeRect(20, 20, canvas.width - 40, canvas.height - 40);
 
       requestAnimationFrame(animate);
     }
