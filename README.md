@@ -20,40 +20,43 @@ Welcome to my GitHub profile! I build tools and applications that make AI agents
 
 ## 🌟 Featured Projects
 
-### 🤖 AI Agent Tools
+### 🤖 AI Agent Tools & Orchestration
 
-| Project | Description | Pages |
-|---------|-------------|-------|
-| **[ralph-manager](https://github.com/vkumar-dev/ralph-manager)** | GUI & CLI for managing AI agent loops | [🌐 View](https://vkumar-dev.github.io/ralph-manager/) |
-| **[agent-workflow-builder](https://github.com/vkumar-dev/agent-workflow-builder)** | Visual browser agent workflow automation | [🌐 View](https://vkumar-dev.github.io/agent-workflow-builder/) |
-| **[local-agent-shell](https://github.com/vkumar-dev/local-agent-shell)** | Browser-based terminal with local access | [🌐 View](https://vkumar-dev.github.io/local-agent-shell/) |
-| **[runnn](https://github.com/vkumar-dev/runnn)** | Local agents with opensource models | [🌐 View](https://vkumar-dev.github.io/runnn/) |
+| Project | Description | Status |
+|---------|-------------|--------|
+| **[ralph-orchestrator](https://github.com/vkumar-dev/ralph-orchestrator)** | 🧠 Interactive CLI that distills requirements into PRDs, executes Ralph for autonomous development | ✨ Active |
+| **[ralph-orchestrator-hub](https://github.com/vkumar-dev/ralph-orchestrator-hub)** | Central hub for Ralph orchestrator | ⚡ Latest |
+| **[ralph-manager](https://github.com/vkumar-dev/ralph-manager)** | GUI & CLI for managing AI agent loops | ✨ Active |
+| **[ralph-loop](https://github.com/vkumar-dev/ralph-loop)** | AI agent loop utilities | ✨ Active |
+| **[fun-with-ralph-loops](https://github.com/vkumar-dev/fun-with-ralph-loops)** | Experimental Ralph loop projects | 🔬 Experiments |
 
-### 🎨 Web Applications
+### 🎨 Web Applications & Tools
 
-| Project | Description | Pages |
-|---------|-------------|-------|
-| **[vibe-coder](https://github.com/vkumar-dev/vibe-coder)** | AI-powered code generation | [🌐 View](https://vkumar-dev.github.io/vibe-coder/) |
-| **[probable-eureka](https://github.com/vkumar-dev/probable-eureka)** | Online local media player | [🌐 View](https://vkumar-dev.github.io/probable-eureka/) |
-| **[flowchartapp](https://github.com/vkumar-dev/flowchartapp)** | Flowchart visualization tool | [🌐 View](https://vkumar-dev.github.io/flowchartapp/) |
+| Project | Description | Status |
+|---------|-------------|--------|
+| **[vibe-coder](https://github.com/vkumar-dev/vibe-coder)** | AI-powered code generation | ✨ Active |
+| **[probable-eureka](https://github.com/vkumar-dev/probable-eureka)** | An online local media player | ✨ Active |
+| **[flowchartapp](https://github.com/vkumar-dev/flowchartapp)** | Flowchart visualization tool | ✨ Active |
+| **[local-agent-shell](https://github.com/vkumar-dev/local-agent-shell)** | Browser-based terminal with local file/shell access | ✨ Active |
 
 ### 📝 Content & Automation
 
-| Project | Description | Pages |
-|---------|-------------|-------|
-| **[autonomousBLOG](https://github.com/vkumar-dev/autonomousBLOG)** | Autonomous blog generation | [🌐 View](https://vkumar-dev.github.io/autonomousBLOG/) |
-| **[autonomousPLAYER](https://github.com/vkumar-dev/autonomousPLAYER)** | Shell scripts for automation | [🌐 View](https://vkumar-dev.github.io/autonomousPLAYER/) |
-| **[ralph-loop](https://github.com/vkumar-dev/ralph-loop)** | AI agent loop utilities | [🌐 View](https://vkumar-dev.github.io/ralph-loop/) |
+| Project | Description | Status |
+|---------|-------------|--------|
+| **[autonomousBLOG](https://github.com/vkumar-dev/autonomousBLOG)** | 🤖 Autonomous AI-powered blog generation (Fresh articles every 4 hours) | ⚡ Live |
+| **[autonomousART](https://github.com/vkumar-dev/autonomousART)** | Autonomous AI art generation | ✨ Active |
+| **[autonomousPLAYER](https://github.com/vkumar-dev/autonomousPLAYER)** | Shell scripts for automation | ✨ Active |
 
 ### 🧪 Experiments & More
 
-| Project | Description | Pages |
-|---------|-------------|-------|
-| **[247agent](https://github.com/vkumar-dev/247agent)** | 24/7 autonomous agent | [🌐 View](https://vkumar-dev.github.io/247agent/) |
-| **[SigmaOne](https://github.com/vkumar-dev/SigmaOne)** | Experimental project | [🌐 View](https://vkumar-dev.github.io/SigmaOne/) |
-| **[Progress](https://github.com/vkumar-dev/Progress)** | Progress tracking tool | [🌐 View](https://vkumar-dev.github.io/Progress/) |
-| **[aicountdown](https://github.com/vkumar-dev/aicountdown)** | AI countdown timer | [🌐 View](https://vkumar-dev.github.io/aicountdown/) |
-| **[filereader](https://github.com/vkumar-dev/filereader)** | File reading utilities | [🌐 View](https://vkumar-dev.github.io/filereader/) |
+| Project | Description | Status |
+|---------|-------------|--------|
+| **[247agent](https://github.com/vkumar-dev/247agent)** | 24/7 autonomous agent | 🔬 Experiments |
+| **[SigmaOne](https://github.com/vkumar-dev/SigmaOne)** | Experimental project | 🔬 Experiments |
+| **[Progress](https://github.com/vkumar-dev/Progress)** | Progress tracking tool | 🔬 Experiments |
+| **[aicountdown](https://github.com/vkumar-dev/aicountdown)** | AI countdown timer | 🔬 Experiments |
+| **[HelloWorld](https://github.com/vkumar-dev/HelloWorld)** | Hello World project | 📚 Learning |
+| **[onlyzerosonce](https://github.com/vkumar-dev/onlyzerosonce)** | Config files for GitHub profile | ⚙️ Config |
 
 ---
 
@@ -72,35 +75,36 @@ Welcome to my GitHub profile! I build tools and applications that make AI agents
 
 ---
 
-## 📈 My Projects Overview
+## 📈 Current Projects Status
 
-![GitHub Repos](https://img.shields.io/badge/Public%20Repos-22-blue?style=for-the-badge)
+- **Total Public Repos**: 16
+- **Active Projects**: 8
+- **Experimental**: 4
+- **Configuration**: 1
+
+Last Updated: February 2026
 
 ---
 
-## 🌐 All My GitHub Pages
+## 🌐 Live Demos
 
-Every project has its own GitHub Pages site! Here's the complete list:
+Experience my projects live:
 
-- [ralph-manager](https://vkumar-dev.github.io/ralph-manager/)
-- [autonomousBLOG](https://vkumar-dev.github.io/autonomousBLOG/)
-- [vibe-coder](https://vkumar-dev.github.io/vibe-coder/)
-- [agent-workflow-builder](https://vkumar-dev.github.io/agent-workflow-builder/)
-- [local-agent-shell](https://vkumar-dev.github.io/local-agent-shell/)
-- [probable-eureka](https://vkumar-dev.github.io/probable-eureka/)
-- [runnn](https://vkumar-dev.github.io/runnn/)
-- [247agent](https://vkumar-dev.github.io/247agent/)
-- [SigmaOne](https://vkumar-dev.github.io/SigmaOne/)
-- [Progress](https://vkumar-dev.github.io/Progress/)
-- [flowchartapp](https://vkumar-dev.github.io/flowchartapp/)
-- [aicountdown](https://vkumar-dev.github.io/aicountdown/)
-- [ralph-loop](https://vkumar-dev.github.io/ralph-loop/)
-- [fun-with-ralph-loops](https://vkumar-dev.github.io/fun-with-ralph-loops/)
-- [HelloWorld](https://vkumar-dev.github.io/HelloWorld/)
-- [filereader](https://vkumar-dev.github.io/filereader/)
-- [onlyzerosonce](https://vkumar-dev.github.io/onlyzerosonce/)
-- [autonomousPLAYER](https://vkumar-dev.github.io/autonomousPLAYER/)
-- [shoonya-mcp-server](https://vkumar-dev.github.io/shoonya-mcp-server/)
+- [autonomousBLOG](https://vkumar-dev.github.io/autonomousBLOG/) - AI-generated articles
+- [vibe-coder](https://vkumar-dev.github.io/vibe-coder/) - Code generation
+- [probable-eureka](https://vkumar-dev.github.io/probable-eureka/) - Media player
+- [ralph-manager](https://vkumar-dev.github.io/ralph-manager/) - Agent management
+- [flowchartapp](https://vkumar-dev.github.io/flowchartapp/) - Flowchart tool
+
+---
+
+## 🎯 What I'm Building
+
+I focus on creating **autonomous AI systems** that work independently to:
+- 🚀 Generate content autonomously
+- 🤖 Manage complex workflows
+- 💡 Reduce repetitive tasks
+- 🔄 Enable continuous improvement loops
 
 ---
 
@@ -108,7 +112,7 @@ Every project has its own GitHub Pages site! Here's the complete list:
 
 <p align="center">
   <a href="https://github.com/vkumar-dev">
-    <img src="https://img.shields.io/badge/GitHub-vkumar-dev-black?style=for-the-badge&logo=github&logoColor=white" alt="GitHub"/>
+    <img src="https://img.shields.io/badge/GitHub-vkumar--dev-black?style=for-the-badge&logo=github&logoColor=white" alt="GitHub"/>
   </a>
 </p>
 
@@ -117,5 +121,5 @@ Every project has its own GitHub Pages site! Here's the complete list:
 <div align="center">
   <sub>Built with ❤️ and lots of ☕</sub>
   <br>
-  <sub>© 2026 vkumar-dev - All projects are open source!</sub>
+  <sub>© 2026 vkumar-dev - All projects are open source and community-driven!</sub>
 </div>
