@@ -1,0 +1,482 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>vkumar-dev | Autonomous AI Developer</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    :root {
+      --hour: 12;
+      --night: 0;
+      --day: 1;
+      --dawn-dusk: 0.5;
+      --primary: #00ff88;
+      --secondary: #0088ff;
+      --accent: #ff00ff;
+      --bg: #0a0e27;
+      --text: #e0e6ff;
+    }
+
+    body {
+      font-family: 'Courier New', monospace;
+      overflow: hidden;
+      background: #0a0e27;
+      color: var(--text);
+      height: 100vh;
+      transition: background 0.5s ease;
+    }
+
+    canvas {
+      display: block;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+    }
+
+    .container {
+      position: fixed;
+      width: 100%;
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      z-index: 10;
+      pointer-events: none;
+    }
+
+    .hero {
+      text-align: center;
+      animation: fadeIn 2s ease-out;
+    }
+
+    .logo {
+      font-size: 4rem;
+      margin-bottom: 1rem;
+      animation: float 3s ease-in-out infinite;
+      text-shadow: 
+        0 0 20px rgba(0, 255, 136, 0.8),
+        0 0 40px rgba(0, 255, 136, 0.4),
+        0 0 60px rgba(0, 136, 255, 0.3);
+    }
+
+    .title {
+      font-size: 3.5rem;
+      font-weight: bold;
+      margin-bottom: 0.5rem;
+      background: linear-gradient(135deg, var(--primary), var(--secondary), var(--accent));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      text-shadow: 
+        0 0 20px rgba(0, 255, 136, 0.5),
+        0 0 40px rgba(0, 136, 255, 0.3);
+      letter-spacing: 2px;
+    }
+
+    .subtitle {
+      font-size: 1.5rem;
+      color: var(--secondary);
+      margin-bottom: 2rem;
+      text-shadow: 
+        0 0 10px rgba(0, 136, 255, 0.6),
+        0 0 20px rgba(255, 0, 255, 0.3);
+      animation: pulse 2s ease-in-out infinite;
+    }
+
+    .status-badge {
+      display: inline-block;
+      padding: 0.5rem 1.5rem;
+      border: 2px solid var(--primary);
+      border-radius: 50px;
+      color: var(--primary);
+      font-size: 0.9rem;
+      margin-bottom: 2rem;
+      text-shadow: 0 0 10px rgba(0, 255, 136, 0.8);
+      box-shadow: 
+        0 0 10px rgba(0, 255, 136, 0.3),
+        inset 0 0 10px rgba(0, 255, 136, 0.1);
+      animation: glow 2s ease-in-out infinite;
+    }
+
+    .projects-preview {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 1rem;
+      max-width: 1000px;
+      margin-top: 2rem;
+      pointer-events: auto;
+      cursor: pointer;
+    }
+
+    .project-card {
+      padding: 1rem;
+      border: 1px solid rgba(0, 255, 136, 0.3);
+      background: rgba(10, 14, 39, 0.7);
+      backdrop-filter: blur(10px);
+      border-radius: 10px;
+      transition: all 0.3s ease;
+      text-shadow: 0 0 10px rgba(0, 255, 136, 0.5);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .project-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(0, 255, 136, 0.2), transparent);
+      animation: shimmer 3s infinite;
+    }
+
+    .project-card:hover {
+      border-color: var(--primary);
+      box-shadow: 
+        0 0 20px rgba(0, 255, 136, 0.5),
+        inset 0 0 20px rgba(0, 255, 136, 0.1);
+      transform: translateY(-5px);
+    }
+
+    .project-card h3 {
+      color: var(--primary);
+      font-size: 1.1rem;
+      margin-bottom: 0.5rem;
+      text-shadow: 0 0 10px rgba(0, 255, 136, 0.8);
+    }
+
+    .project-card p {
+      font-size: 0.8rem;
+      color: var(--text);
+      opacity: 0.8;
+    }
+
+    .time-display {
+      position: fixed;
+      top: 20px;
+      right: 20px;
+      font-size: 0.9rem;
+      color: var(--secondary);
+      z-index: 20;
+      text-shadow: 0 0 10px rgba(0, 136, 255, 0.6);
+      pointer-events: auto;
+    }
+
+    .stats {
+      position: fixed;
+      bottom: 20px;
+      left: 20px;
+      font-size: 0.8rem;
+      color: var(--primary);
+      z-index: 20;
+      text-shadow: 0 0 10px rgba(0, 255, 136, 0.6);
+      pointer-events: auto;
+    }
+
+    .stats span {
+      display: block;
+      margin: 0.3rem 0;
+    }
+
+    @keyframes fadeIn {
+      from {
+        opacity: 0;
+        transform: translateY(20px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    @keyframes float {
+      0%, 100% { transform: translateY(0px); }
+      50% { transform: translateY(-20px); }
+    }
+
+    @keyframes pulse {
+      0%, 100% { opacity: 0.8; }
+      50% { opacity: 1; }
+    }
+
+    @keyframes glow {
+      0%, 100% {
+        box-shadow: 
+          0 0 10px rgba(0, 255, 136, 0.3),
+          inset 0 0 10px rgba(0, 255, 136, 0.1);
+      }
+      50% {
+        box-shadow: 
+          0 0 20px rgba(0, 255, 136, 0.6),
+          inset 0 0 20px rgba(0, 255, 136, 0.2);
+      }
+    }
+
+    @keyframes shimmer {
+      0% { left: -100%; }
+      100% { left: 100%; }
+    }
+
+    .github-link {
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      padding: 0.8rem 1.5rem;
+      border: 2px solid var(--secondary);
+      background: rgba(0, 136, 255, 0.1);
+      color: var(--secondary);
+      text-decoration: none;
+      border-radius: 50px;
+      font-size: 0.9rem;
+      z-index: 20;
+      transition: all 0.3s ease;
+      text-shadow: 0 0 10px rgba(0, 136, 255, 0.8);
+      pointer-events: auto;
+      cursor: pointer;
+    }
+
+    .github-link:hover {
+      box-shadow: 0 0 20px rgba(0, 136, 255, 0.6);
+      transform: scale(1.05);
+    }
+  </style>
+</head>
+<body>
+  <canvas id="canvas"></canvas>
+  
+  <div class="container">
+    <div class="hero">
+      <div class="logo">🤖</div>
+      <h1 class="title">vkumar-dev</h1>
+      <p class="subtitle">Autonomous AI Developer</p>
+      <div class="status-badge">◆ Active & Building ◆</div>
+      
+      <div class="projects-preview">
+        <div class="project-card">
+          <h3>ralph-orchestrator</h3>
+          <p>AI PRD generation & autonomous development</p>
+        </div>
+        <div class="project-card">
+          <h3>autonomousBLOG</h3>
+          <p>AI-powered content generation</p>
+        </div>
+        <div class="project-card">
+          <h3>vibe-coder</h3>
+          <p>AI code generation tools</p>
+        </div>
+        <div class="project-card">
+          <h3>ralph-manager</h3>
+          <p>Agent loop management GUI</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="time-display" id="timeDisplay">00:00</div>
+  
+  <div class="stats">
+    <span>→ 16 Public Repos</span>
+    <span>→ 8 Active Projects</span>
+    <span>→ ∞ Autonomous Loops</span>
+  </div>
+
+  <a href="https://github.com/vkumar-dev" class="github-link">Visit GitHub →</a>
+
+  <script>
+    // Time-based theme system
+    function updateTheme() {
+      const hour = new Date().getHours();
+      const isNight = hour < 6 || hour > 18;
+      const isDawn = (hour >= 6 && hour < 8) || (hour >= 17 && hour < 18);
+      const isDusk = hour >= 18 && hour < 20;
+
+      let bgColor, primaryColor, secondaryColor, accentColor;
+
+      if (isDawn) {
+        // Dawn: Orange to Purple
+        bgColor = '#1a0f2e';
+        primaryColor = '#ff6b35';
+        secondaryColor = '#f7931e';
+        accentColor = '#d83f31';
+      } else if (isDusk) {
+        // Dusk: Purple to Blue
+        bgColor = '#0d1b2a';
+        primaryColor = '#ff006e';
+        secondaryColor = '#8338ec';
+        accentColor = '#3a86ff';
+      } else if (isNight) {
+        // Night: Deep Blue/Cyan
+        bgColor = '#0a0e27';
+        primaryColor = '#00ff88';
+        secondaryColor = '#0088ff';
+        accentColor = '#ff00ff';
+      } else {
+        // Day: Green/Blue
+        bgColor = '#0f1729';
+        primaryColor = '#00ff88';
+        secondaryColor = '#00d4ff';
+        accentColor = '#00ff88';
+      }
+
+      document.documentElement.style.setProperty('--primary', primaryColor);
+      document.documentElement.style.setProperty('--secondary', secondaryColor);
+      document.documentElement.style.setProperty('--accent', accentColor);
+      document.body.style.background = bgColor;
+
+      const timeDisplay = document.getElementById('timeDisplay');
+      const now = new Date();
+      const hours = String(now.getHours()).padStart(2, '0');
+      const mins = String(now.getMinutes()).padStart(2, '0');
+      const period = isNight ? '🌙' : isDawn ? '🌅' : isDusk ? '🌆' : '☀️';
+      timeDisplay.textContent = `${period} ${hours}:${mins}`;
+    }
+
+    // Canvas animation - 3D particles with depth effect
+    const canvas = document.getElementById('canvas');
+    const ctx = canvas.getContext('2d');
+
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
+
+    class Particle {
+      constructor() {
+        this.x = Math.random() * canvas.width;
+        this.y = Math.random() * canvas.height;
+        this.z = Math.random() * 1000;
+        this.vx = (Math.random() - 0.5) * 2;
+        this.vy = (Math.random() - 0.5) * 2;
+        this.vz = (Math.random() - 0.5) * 3;
+        this.size = Math.random() * 2 + 1;
+        this.color = ['#00ff88', '#0088ff', '#ff00ff', '#ffff00'][Math.floor(Math.random() * 4)];
+      }
+
+      update() {
+        this.x += this.vx;
+        this.y += this.vy;
+        this.z -= this.vz;
+
+        if (this.z < 0) {
+          this.z = 1000;
+          this.x = Math.random() * canvas.width;
+          this.y = Math.random() * canvas.height;
+        }
+
+        if (this.x < 0) this.x = canvas.width;
+        if (this.x > canvas.width) this.x = 0;
+        if (this.y < 0) this.y = canvas.height;
+        if (this.y > canvas.height) this.y = 0;
+      }
+
+      draw() {
+        const scale = 500 / this.z;
+        const x = (this.x - canvas.width / 2) * scale + canvas.width / 2;
+        const y = (this.y - canvas.height / 2) * scale + canvas.height / 2;
+        const size = this.size * scale;
+        const opacity = 1 - this.z / 1000;
+
+        ctx.fillStyle = this.color.replace(')', `, ${opacity})`).replace('rgb', 'rgba');
+        ctx.beginPath();
+        ctx.arc(x, y, Math.max(size, 0.5), 0, Math.PI * 2);
+        ctx.fill();
+
+        // Glow effect
+        ctx.strokeStyle = this.color.replace(')', `, ${opacity * 0.5})`).replace('rgb', 'rgba');
+        ctx.lineWidth = 1;
+        ctx.stroke();
+      }
+    }
+
+    class WaveEffect {
+      constructor() {
+        this.amplitude = 50;
+        this.frequency = 0.01;
+        this.phase = 0;
+      }
+
+      draw() {
+        ctx.strokeStyle = 'rgba(0, 255, 136, 0.1)';
+        ctx.lineWidth = 1;
+        ctx.beginPath();
+
+        for (let x = 0; x < canvas.width; x += 20) {
+          const y = canvas.height / 2 + Math.sin(x * this.frequency + this.phase) * this.amplitude;
+          if (x === 0) ctx.moveTo(x, y);
+          else ctx.lineTo(x, y);
+        }
+
+        ctx.stroke();
+        this.phase += 0.02;
+      }
+    }
+
+    const particles = Array.from({ length: 100 }, () => new Particle());
+    const wave = new WaveEffect();
+
+    function animate() {
+      // Clear with fade effect for trail
+      ctx.fillStyle = 'rgba(10, 14, 39, 0.05)';
+      ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+      // Update and draw particles
+      particles.forEach(p => {
+        p.update();
+        p.draw();
+      });
+
+      // Draw connections between nearby particles
+      for (let i = 0; i < particles.length; i++) {
+        for (let j = i + 1; j < particles.length; j++) {
+          const dx = particles[i].x - particles[j].x;
+          const dy = particles[i].y - particles[j].y;
+          const distance = Math.sqrt(dx * dx + dy * dy);
+
+          if (distance < 150) {
+            const opacity = (1 - distance / 150) * 0.3;
+            ctx.strokeStyle = `rgba(0, 255, 136, ${opacity})`;
+            ctx.lineWidth = 1;
+            ctx.beginPath();
+            ctx.moveTo(particles[i].x, particles[i].y);
+            ctx.lineTo(particles[j].x, particles[j].y);
+            ctx.stroke();
+          }
+        }
+      }
+
+      // Draw wave effect
+      wave.draw();
+
+      requestAnimationFrame(animate);
+    }
+
+    animate();
+
+    // Update theme on load and every minute
+    updateTheme();
+    setInterval(updateTheme, 60000);
+
+    // Handle window resize
+    window.addEventListener('resize', () => {
+      canvas.width = window.innerWidth;
+      canvas.height = window.innerHeight;
+    });
+
+    // Smooth scroll for project cards
+    document.querySelectorAll('.project-card').forEach(card => {
+      card.addEventListener('click', () => {
+        const text = card.querySelector('h3').textContent;
+        window.location.href = `https://github.com/vkumar-dev/${text.toLowerCase().replace(/ /g, '-')}`;
+      });
+    });
+  </script>
+</body>
+</html>
