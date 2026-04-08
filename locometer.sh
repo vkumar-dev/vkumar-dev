@@ -87,13 +87,13 @@ main() {
     fi
     mkdir -p "$CLONE_DIR"
 
-    # Fetch all repositories
+    # Fetch all repositories (include visibility info)
     log "Fetching repositories for @${GITHUB_USERNAME}..."
-    local repos
-    repos=$(gh repo list "$GITHUB_USERNAME" --limit "$MAX_REPOS" --json name,url --jq '.[].url')
-    
+    local repos_json
+    repos_json=$(gh repo list "$GITHUB_USERNAME" --limit "$MAX_REPOS" --json name,url,isPrivate)
+
     local repo_count
-    repo_count=$(echo "$repos" | wc -l | tr -d ' ')
+    repo_count=$(echo "$repos_json" | python3 -c "import sys,json; print(len(json.load(sys.stdin)))")
     log "Found ${repo_count} repositories"
     echo ""
 
@@ -101,25 +101,35 @@ main() {
     local total_loc=0
     local total_files=0
     local current=0
+    local private_count=0
 
-    while IFS= read -r repo_url; do
-        [[ -z "$repo_url" ]] && continue
-        
+    while IFS= read -r repo_entry; do
+        [[ -z "$repo_entry" ]] && continue
+
         current=$((current + 1))
+
+        # Parse fields from JSON line
+        local repo_url is_private
+        repo_url=$(echo "$repo_entry" | python3 -c "import sys,json; d=json.load(sys.stdin); print(d['url'])")
+        is_private=$(echo "$repo_entry" | python3 -c "import sys,json; d=json.load(sys.stdin); print(str(d['isPrivate']).lower())")
+
         local repo_name
         repo_name=$(basename "$repo_url")
-        
-        # Convert https://github.com/owner/repo to https://github.com/owner/repo.git
         local clone_url="${repo_url}.git"
-        
-        log "[${current}/${repo_count}] Cloning ${repo_name}..."
-        
+
+        if [[ "$is_private" == "true" ]]; then
+            private_count=$((private_count + 1))
+            log "[${current}/${repo_count}] Cloning 🔒 private repo #${private_count}..."
+        else
+            log "[${current}/${repo_count}] Cloning ${repo_name}..."
+        fi
+
         # Clone repo (shallow clone for speed)
         if git clone --depth 1 "$clone_url" "${CLONE_DIR}/${repo_name}" &>/dev/null; then
             # Count lines of code using cloc
             local cloc_output
             cloc_output=$(cloc "${CLONE_DIR}/${repo_name}" --json --quiet 2>/dev/null || echo "{}")
-            
+
             # Parse cloc JSON output
             local repo_loc
             repo_loc=$(echo "$cloc_output" | python3 -c "
@@ -132,7 +142,7 @@ try:
 except:
     print(0)
 " 2>/dev/null || echo "0")
-            
+
             local repo_files
             repo_files=$(echo "$cloc_output" | python3 -c "
 import sys, json
@@ -143,18 +153,32 @@ try:
 except:
     print(0)
 " 2>/dev/null || echo "0")
-            
+
             total_loc=$((total_loc + repo_loc))
             total_files=$((total_files + repo_files))
-            log "  ↳ ${repo_loc} LOC | ${repo_files} files"
-            
+
+            if [[ "$is_private" == "true" ]]; then
+                log "  ↳ 🔒 private | ${repo_loc} LOC | ${repo_files} files"
+            else
+                log "  ↳ ${repo_loc} LOC | ${repo_files} files"
+            fi
+
             # Delete cloned repo immediately to save disk space
             rm -rf "${CLONE_DIR}/${repo_name}"
         else
-            log "  ↳ Failed to clone (skipping)"
+            if [[ "$is_private" == "true" ]]; then
+                log "  ↳ 🔒 Failed to clone private repo (skipping)"
+            else
+                log "  ↳ Failed to clone (skipping)"
+            fi
         fi
         echo ""
-    done <<< "$repos"
+    done < <(echo "$repos_json" | python3 -c "
+import sys, json
+repos = json.load(sys.stdin)
+for r in repos:
+    print(json.dumps(r))
+")
 
     # Get current date
     local current_date
