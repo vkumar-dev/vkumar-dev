@@ -40,10 +40,15 @@ jobs:
       - name: Generate LOC Chart
         run: python3 plot_loc.py
 
+      - name: Update Pages Dashboard
+        run: |
+          cp loc-chart.png pages/
+          cp loc-data/loc-history.csv pages/
+
       - name: Commit & Push Results
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
-          git add loc-data/ loc-chart.png
+          git add loc-data/ loc-chart.png pages/loc-chart.png pages/loc-history.csv
           git diff --staged --quiet || git commit -m "🚂 Update LOC data and chart [skip ci]"
           git push
