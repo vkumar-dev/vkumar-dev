@@ -1,0 +1,9 @@
+# LOCOMETER temp files
+loc-data/repos-temp/
+
+# Qwen
+.qwen/
+
+# Python
+__pycache__/
+*.pyc

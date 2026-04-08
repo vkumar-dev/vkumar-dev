@@ -1,0 +1,49 @@
+name: 🚂 LOC Tracker
+
+on:
+  schedule:
+    # Run daily at 00:00 UTC
+    - cron: "0 0 * * *"
+  workflow_dispatch:  # Allow manual trigger
+
+permissions:
+  contents: write
+
+jobs:
+  loc-counter:
+    name: Count Lines of Code
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0  # Full history to get data file
+
+      - name: Install Dependencies
+        run: |
+          sudo apt-get update -qq
+          sudo apt-get install -y -qq cloc > /dev/null 2>&1
+          pip install matplotlib > /dev/null 2>&1
+
+      - name: Authenticate GitHub CLI
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          gh auth status
+
+      - name: Run LOCOMETER
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: bash locometer.sh
+
+      - name: Generate LOC Chart
+        run: python3 plot_loc.py
+
+      - name: Commit & Push Results
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add loc-data/ loc-chart.png
+          git diff --staged --quiet || git commit -m "🚂 Update LOC data and chart [skip ci]"
+          git push
