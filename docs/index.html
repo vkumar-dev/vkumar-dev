@@ -87,16 +87,22 @@
     </footer>
     <script>
         // Load stats from CSV
-        fetch('../loc-data/loc-history.csv')
-            .then(r => r.text())
+        fetch('./loc-history.csv')
+            .then(r => {
+                if (!r.ok) throw new Error(`HTTP ${r.status}`);
+                return r.text();
+            })
             .then(csv => {
                 const lines = csv.trim().split('\n');
                 const last = lines[lines.length - 1];
-                const [date, loc, files] = last.split(',');
-                
+                const parts = last.split(',');
+                const date = parts[0];
+                const loc = parts[1];
+                const files = parts[2];
+
                 const locNum = parseInt(loc).toLocaleString();
                 const filesNum = parseInt(files).toLocaleString();
-                
+
                 // Calculate growth if we have 2+ entries
                 let growthHTML = '';
                 if (lines.length >= 3) {
@@ -108,7 +114,7 @@
                         <div class="label">Growth Since Last Run</div>
                     </div>`;
                 }
-                
+
                 document.getElementById('stats').innerHTML = `
                     <div class="stat-box">
                         <div class="value">${locNum}</div>
@@ -122,6 +128,14 @@
                     <div class="stat-box">
                         <div class="value" style="color:#d2a8ff">${date}</div>
                         <div class="label">Last Updated</div>
+                    </div>
+                `;
+            })
+            .catch(err => {
+                document.getElementById('stats').innerHTML = `
+                    <div class="stat-box">
+                        <div class="value" style="color:#f85149">⚠ Error</div>
+                        <div class="label">${err.message}</div>
                     </div>
                 `;
             });
