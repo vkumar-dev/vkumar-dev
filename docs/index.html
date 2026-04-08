@@ -87,7 +87,7 @@
     </footer>
     <script>
         // Load stats from CSV
-        fetch('./loc-data/loc-history.csv')
+        fetch('../loc-data/loc-history.csv')
             .then(r => r.text())
             .then(csv => {
                 const lines = csv.trim().split('\n');
