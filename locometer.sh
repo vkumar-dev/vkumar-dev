@@ -90,7 +90,7 @@ main() {
     # Fetch all repositories
     log "Fetching repositories for @${GITHUB_USERNAME}..."
     local repos
-    repos=$(gh repo list "$GITHUB_USERNAME" --limit "$MAX_REPOS" --json name,cloneUrl --jq '.[].cloneUrl')
+    repos=$(gh repo list "$GITHUB_USERNAME" --limit "$MAX_REPOS" --json name,url --jq '.[].url')
     
     local repo_count
     repo_count=$(echo "$repos" | wc -l | tr -d ' ')
@@ -107,12 +107,15 @@ main() {
         
         current=$((current + 1))
         local repo_name
-        repo_name=$(basename "$repo_url" .git)
+        repo_name=$(basename "$repo_url")
+        
+        # Convert https://github.com/owner/repo to https://github.com/owner/repo.git
+        local clone_url="${repo_url}.git"
         
         log "[${current}/${repo_count}] Cloning ${repo_name}..."
         
         # Clone repo (shallow clone for speed)
-        if git clone --depth 1 "$repo_url" "${CLONE_DIR}/${repo_name}" &>/dev/null; then
+        if git clone --depth 1 "$clone_url" "${CLONE_DIR}/${repo_name}" &>/dev/null; then
             # Count lines of code using cloc
             local cloc_output
             cloc_output=$(cloc "${CLONE_DIR}/${repo_name}" --json --quiet 2>/dev/null || echo "{}")
