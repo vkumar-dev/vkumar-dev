@@ -39,8 +39,6 @@ COLORS = {
     "grid": "#21262d",        # Grid lines
     "line_loc": "#58a6ff",    # Blue for LOC line
     "fill_loc": "#58a6ff",    # Blue fill
-    "line_files": "#3fb950",  # Green for files line
-    "fill_files": "#3fb950",  # Green fill
     "text": "#c9d1d9",        # Main text
     "text_dim": "#8b949e",    # Dimmed text
     "title": "#ffffff",       # Title
@@ -58,7 +56,6 @@ def load_data():
 
     dates = []
     loc_values = []
-    file_values = []
 
     with open(DATA_FILE, "r") as f:
         reader = csv.DictReader(f)
@@ -67,7 +64,6 @@ def load_data():
                 date = datetime.strptime(row["date"], "%Y-%m-%d")
                 dates.append(date)
                 loc_values.append(int(row["total_loc"]))
-                file_values.append(int(row["total_files"]))
             except (ValueError, KeyError) as e:
                 print(f"📈 [WARN] Skipping invalid row: {e}")
                 continue
@@ -76,87 +72,62 @@ def load_data():
         print("📈 [ERROR] No valid data found in CSV file!")
         sys.exit(1)
 
-    return dates, loc_values, file_values
+    return dates, loc_values
 
 
-def filter_last_year(dates, loc_values, file_values):
+def filter_last_year(dates, loc_values):
     """Filter data to only include the last year."""
     cutoff = datetime.now() - timedelta(days=DAYS_BACK)
-    
+
     filtered_dates = []
     filtered_loc = []
-    filtered_files = []
-    
-    for d, loc, files in zip(dates, loc_values, file_values):
+
+    for d, loc in zip(dates, loc_values):
         if d >= cutoff:
-            filtered_date = d
-            filtered_dates.append(filtered_date)
+            filtered_dates.append(d)
             filtered_loc.append(loc)
-            filtered_files.append(files)
-    
-    return filtered_dates, filtered_loc, filtered_files
+
+    return filtered_dates, filtered_loc
 
 
-def create_plot(dates, loc_values, file_values):
+def create_plot(dates, loc_values):
     """Create the area plot."""
     # Setup figure
-    fig, ax1 = plt.subplots(figsize=(14, 7))
+    fig, ax = plt.subplots(figsize=(14, 7))
     fig.patch.set_facecolor(COLORS["bg"])
-    ax1.set_facecolor(COLORS["bg"])
+    ax.set_facecolor(COLORS["bg"])
 
-    # ── Primary Y-axis: Lines of Code ──
-    ax1.fill_between(
-        dates, loc_values, alpha=0.15, color=COLORS["fill_loc"], linewidth=0
+    # ── Lines of Code ──
+    ax.fill_between(
+        dates, loc_values, alpha=0.2, color=COLORS["fill_loc"], linewidth=0
     )
-    ax1.plot(
+    ax.plot(
         dates,
         loc_values,
         color=COLORS["line_loc"],
-        linewidth=2.5,
+        linewidth=3,
         marker="o",
-        markersize=6,
+        markersize=8,
         label="Lines of Code",
         zorder=5,
     )
-    ax1.set_xlabel("Date", fontsize=13, color=COLORS["text"], fontweight="bold")
-    ax1.set_ylabel("Lines of Code", fontsize=13, color=COLORS["line_loc"], fontweight="bold")
-    ax1.tick_params(axis="x", colors=COLORS["text_dim"], labelsize=11)
-    ax1.tick_params(axis="y", colors=COLORS["line_loc"], labelsize=11)
-
-    # ── Secondary Y-axis: Total Files ──
-    ax2 = ax1.twinx()
-    ax2.fill_between(
-        dates, file_values, alpha=0.1, color=COLORS["fill_files"], linewidth=0
-    )
-    ax2.plot(
-        dates,
-        file_values,
-        color=COLORS["line_files"],
-        linewidth=2,
-        marker="s",
-        markersize=5,
-        label="Total Files",
-        linestyle="--",
-        zorder=4,
-    )
-    ax2.set_ylabel(
-        "Total Files", fontsize=13, color=COLORS["line_files"], fontweight="bold"
-    )
-    ax2.tick_params(axis="y", colors=COLORS["line_files"], labelsize=11)
+    ax.set_xlabel("Date", fontsize=13, color=COLORS["text"], fontweight="bold")
+    ax.set_ylabel("Lines of Code", fontsize=14, color=COLORS["line_loc"], fontweight="bold")
+    ax.tick_params(axis="x", colors=COLORS["text_dim"], labelsize=11)
+    ax.tick_params(axis="y", colors=COLORS["line_loc"], labelsize=11)
 
     # ── Grid ──
-    ax1.grid(True, color=COLORS["grid"], linestyle="-", linewidth=0.5, alpha=0.5)
+    ax.grid(True, color=COLORS["grid"], linestyle="-", linewidth=0.5, alpha=0.5)
 
     # ── Title ──
     total_loc = loc_values[-1] if loc_values else 0
-    total_files = file_values[-1] if file_values else 0
     growth = ""
     if len(loc_values) >= 2:
         diff = loc_values[-1] - loc_values[0]
         sign = "+" if diff >= 0 else ""
         growth = f"  |  Growth: {sign}{diff:,} LOC"
 
-    title = f"🚂 Code Growth - Last {DAYS_BACK//30} Months  |  Total: {total_loc:,} LOC  |  {total_files:,} Files{growth}"
+    title = f"🚂 Code Growth - Last {DAYS_BACK//30} Months  |  Total: {total_loc:,} LOC{growth}"
     fig.suptitle(
         title,
         fontsize=16,
@@ -166,16 +137,12 @@ def create_plot(dates, loc_values, file_values):
     )
 
     # ── Date formatting ──
-    ax1.xaxis.set_major_formatter(mdates.DateFormatter("%b %Y"))
-    ax1.xaxis.set_major_locator(mdates.MonthLocator())
-    plt.setp(ax1.xaxis.get_majorticklabels(), rotation=45, ha="right")
+    ax.xaxis.set_major_formatter(mdates.DateFormatter("%b %Y"))
+    ax.xaxis.set_major_locator(mdates.MonthLocator())
+    plt.setp(ax.xaxis.get_majorticklabels(), rotation=45, ha="right")
 
     # ── Legend ──
-    lines1, labels1 = ax1.get_legend_handles_labels()
-    lines2, labels2 = ax2.get_legend_handles_labels()
-    ax1.legend(
-        lines1 + lines2,
-        labels1 + labels2,
+    ax.legend(
         loc="upper left",
         fontsize=11,
         framealpha=0.1,
@@ -199,12 +166,12 @@ def main():
 
     # Load data
     print("📈 Loading data...")
-    dates, loc_values, file_values = load_data()
+    dates, loc_values = load_data()
     print(f"📈 Found {len(dates)} data points")
 
     # Filter to last year
     print(f"📈 Filtering to last {DAYS_BACK} days...")
-    dates, loc_values, file_values = filter_last_year(dates, loc_values, file_values)
+    dates, loc_values = filter_last_year(dates, loc_values)
     print(f"📈 {len(dates)} data points in range")
     print()
 
@@ -213,11 +180,10 @@ def main():
         # Duplicate the point so matplotlib can render it
         dates = [dates[0], dates[0]]
         loc_values = [loc_values[0], loc_values[0]]
-        file_values = [file_values[0], file_values[0]]
 
     # Create and save plot
     print("📈 Generating plot...")
-    fig = create_plot(dates, loc_values, file_values)
+    fig = create_plot(dates, loc_values)
     fig.savefig(
         OUTPUT_IMAGE,
         dpi=150,
