@@ -2,8 +2,8 @@ name: 🚂 LOC Tracker
 
 on:
   schedule:
-    # Run daily at 00:00 UTC
-    - cron: "0 0 * * *"
+    # Run daily at 04:56 UTC
+    - cron: "56 4 * * *"
   workflow_dispatch:  # Allow manual trigger
 
 permissions:
