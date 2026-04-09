@@ -105,9 +105,9 @@
 
                 // Calculate growth if we have 2+ entries
                 let growthHTML = '';
-                if (lines.length >= 3) {
+                if (lines.length >= 2) {
                     const prev = lines[lines.length - 2].split(',');
-                    const diff = parseInt(loc) - parseInt(prev[2]);
+                    const diff = parseInt(loc) - parseInt(prev[1]);
                     const sign = diff >= 0 ? '+' : '';
                     growthHTML = `<div class="stat-box">
                         <div class="value" style="color:${diff >= 0 ? '#3fb950' : '#f85149'}">${sign}${diff.toLocaleString()}</div>
