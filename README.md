@@ -1,3 +1,3 @@
-[![LOC Chart](./loc-chart.png)(https://vkumar-dev.github.io/vkumar-dev/)]
+[![LOC Chart](https://github.com/vkumar-dev/vkumar-dev/blob/main/loc-chart.png)](https://github.com/vkumar-dev/vkumar-dev)
 
 I am a programmer for fun. 
